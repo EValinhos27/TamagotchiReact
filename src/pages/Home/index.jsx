@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router";
 import Carousel from "../../components/Carousel";
-import Footer from "../../components/Footer";
 import MessageContainer from "../../components/MessageContainer";
 import logoImg from "../../assets/home/Logo.jpeg";
 import deviceImg from "../../assets/home/device.png";
@@ -141,7 +140,6 @@ export default function Home() {
         </>
       )}
 
-      <Footer />
       <MessageContainer />
     </PageWrapper>
   );

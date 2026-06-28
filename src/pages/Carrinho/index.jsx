@@ -15,7 +15,6 @@ import {
   PageWrapper,
   Total,
 } from "./style";
-import Footer from "../../components/Footer";
 
 const CUPONS = { "05/05": 0.1 };
 
@@ -239,8 +238,6 @@ export default function Carrinho() {
       </ModalOverlay>
 
       <Alerta $show={alertaVisible}>{alerta}</Alerta>
-
-      <Footer />
     </PageWrapper>
   );
 }
