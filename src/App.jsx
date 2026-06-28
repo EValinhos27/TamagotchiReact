@@ -1,16 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { AppProvider } from "./contexts/AppContext";
+import { GlobalStyles } from "./styles/GlobalStyles";
+import { theme } from "./styles/theme";
 
-function App() {
-  const [count, setCount] = useState(0)
+import Home from "./pages/Home";
 
+export default function App() {
   return (
-    <>
-      <h1>Olá</h1>
-    </>
-  )
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <AppProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </BrowserRouter>
+      </AppProvider>
+    </ThemeProvider>
+  );
 }
-
-export default App
