@@ -1,16 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { ThemeProvider } from "styled-components";
+import { AppProvider } from "./contexts/AppContext";
+import { GlobalStyles } from "./styles/GlobalStyles";
+import { theme } from "./styles/theme";
+import Routers from "./routers/Routes";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <>
-      <h1>Olá</h1>
-    </>
-  )
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <AppProvider>
+        <Routers />
+      </AppProvider>
+    </ThemeProvider>
+  );
 }
-
-export default App
