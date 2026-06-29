@@ -25,4 +25,3 @@ dist-ssr
 
 # Variáveis de ambiente
 .env
-.package-lock.json

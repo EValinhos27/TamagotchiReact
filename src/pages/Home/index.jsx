@@ -73,7 +73,7 @@ export default function Home() {
                 <NavLink
                   onClick={() => {
                     // Se estiver autenticado, vai para o teste/perfil. Se não, vai para o login.
-                    navigate(isAuthenticated ? "/teste" : "/login");
+                    navigate(isAuthenticated ? "/perfil" : "/login");
                   }}
                 >
                   {isAuthenticated ? "Minha conta" : "Login"}
