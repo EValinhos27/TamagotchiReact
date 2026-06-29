@@ -1,4 +1,4 @@
-import { useProdutos } from "../../hooks/ProdutoAPI";
+import { useProdutos } from "../../hooks/produtoAPI";
 import ProdutoCard from "../../components/ProdutoCard";
 import Footer from "../../components/Footer";
 import MessageContainer from "../../components/MessageContainer";
