@@ -7,18 +7,20 @@ export const PageWrapper = styled.div`
     url(${fundoTama});
   background-repeat: repeat;
   min-height: 100vh;
+  transition: background-color 0.3s ease;
 `;
 
 export const Cumpom = styled.div`
   font-family: "Poppins", sans-serif;
-  color: #ff6fa5;
-  background-color: #9fe3b0;
+  color: ${({ theme }) => theme.colors.accent};
+  background-color: ${({ theme }) => theme.colors.accentGreen};
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
   font-size: 10px;
   text-align: center;
+  transition: background-color 0.3s, color 0.3s;
 
   @media (min-width: 768px) {
     height: 80px;
@@ -84,8 +86,8 @@ export const NavItem = styled.li`
 
 export const NavLink = styled.a`
   text-decoration: none;
-  color: white;
-  background-color: #ffb86b;
+  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.primary};
   padding: 12px 15px;
   border-radius: 20px;
   font-weight: bold;
@@ -101,8 +103,8 @@ export const NavLink = styled.a`
   z-index: 9999;
 
   &:hover {
-    background-color: #c8a2ff;
-    color: #4a4a4a;
+    background-color: ${({ theme }) => theme.colors.primaryHover};
+    color: ${({ theme }) => theme.colors.text};
     transform: translateY(-2px);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   }
@@ -137,11 +139,13 @@ export const ActionBtn = styled.button`
   cursor: pointer;
   border-radius: 50%;
   border: none;
-  background-color: #c8a2ff;
+  background-color: ${({ theme }) => theme.colors.primaryHover};
+  color: ${({ theme }) => theme.colors.text};
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
   transition:
     transform 0.2s,
-    background-color 0.2s;
+    background-color 0.2s,
+    color 0.2s;
 
   &:hover {
     transform: scale(1.1);
@@ -162,6 +166,8 @@ export const PrateleiraTitle = styled.h2`
   text-transform: uppercase;
   font-weight: 300;
   font-size: 20px;
+  color: ${({ theme }) => theme.colors.text};
+  transition: color 0.3s ease;
 
   @media (min-width: 768px) {
     font-size: 32px;
@@ -189,15 +195,16 @@ export const VejaMais = styled.a`
   margin: 10px auto 0;
   padding: 4px;
   width: 100px;
-  color: #2f2a2e;
+  color: ${({ theme }) => theme.colors.text};
   background: transparent;
   text-align: center;
   text-decoration: none;
   border: none;
-  box-shadow: 0px 0px 8px #7f737d;
+  box-shadow: ${({ theme }) => theme.name === 'dark' ? '0px 0px 8px rgba(255, 255, 255, 0.3)' : '0px 0px 8px #7f737d'};
   border-radius: 10px;
   cursor: pointer;
   backdrop-filter: blur(5px);
+  transition: color 0.3s, box-shadow 0.3s;
 
   @media (min-width: 768px) {
     font-size: 15px;

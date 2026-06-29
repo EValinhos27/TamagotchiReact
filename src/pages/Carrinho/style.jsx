@@ -22,26 +22,33 @@ export const Breadcrumb = styled.nav`
     padding: 0;
   }
   a {
-    color: #3f76c2;
+    color: ${({ theme }) => theme.colors.blue};
     text-decoration: underline;
+    &:hover {
+      color: ${({ theme }) => theme.colors.blueHover};
+    }
   }
 `;
 
 export const Container = styled.div`
-  background-color: rgba(253, 241, 230, 0.7);
+  background-color: ${({ theme }) => theme.name === 'dark' ? 'rgba(43, 48, 53, 0.8)' : 'rgba(253, 241, 230, 0.7)'};
   padding: 1.25rem;
   border-radius: 0.625rem;
   max-width: 900px;
   margin: 0 auto;
+  color: ${({ theme }) => theme.colors.text};
+  transition: background-color 0.3s, color 0.3s;
 `;
 
 export const Card = styled.div`
-  background: rgba(253, 242, 230, 0.6);
+  background: ${({ theme }) => theme.name === 'dark' ? 'rgba(52, 58, 64, 0.8)' : 'rgba(253, 242, 230, 0.6)'};
   backdrop-filter: blur(8px);
   border-radius: 1rem;
   padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 0.5rem 1.2rem rgba(0, 0, 0, 0.1);
+  border: 1px solid ${({ theme }) => theme.name === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.4)'};
+  box-shadow: 0 0.5rem 1.2rem ${({ theme }) => theme.name === 'dark' ? 'rgba(0, 0, 0, 0.4)' : 'rgba(0, 0, 0, 0.1)'};
+  color: ${({ theme }) => theme.colors.text};
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, color 0.3s;
 `;
 
 export const CardProduto = styled.div`
@@ -49,10 +56,13 @@ export const CardProduto = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 1rem;
-  background: rgba(255, 255, 255, 0.6);
+  background: ${({ theme }) => theme.name === 'dark' ? 'rgba(33, 37, 41, 0.7)' : 'rgba(255, 255, 255, 0.6)'};
   border-radius: 10px;
   padding: 15px;
   margin-bottom: 10px;
+  color: ${({ theme }) => theme.colors.text};
+  border: 1px solid ${({ theme }) => theme.name === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'transparent'};
+  transition: background 0.3s, color 0.3s;
 
   @media (min-width: 500px) {
     flex-direction: row;
@@ -81,17 +91,13 @@ export const Btn = styled.button`
   border-radius: 8px;
   cursor: pointer;
   font-family: "Poppins", sans-serif;
-  background-color: ${({ $variant }) =>
-    $variant === "danger"
-      ? "#dc3545"
-      : $variant === "success"
-        ? "#28a745"
-        : $variant === "warning"
-          ? "#ffc107"
-          : "#6c757d"};
-  color: ${({ $variant }) => ($variant === "warning" ? "#000" : "#fff")};
+  background-color: ${({ theme, $variant }) => theme.buttons[$variant || 'secondary'].background};
+  color: ${({ theme, $variant }) => theme.buttons[$variant || 'secondary'].color};
+  transition: background-color 0.2s, opacity 0.2s;
+
   &:hover {
-    opacity: 0.85;
+    background-color: ${({ theme, $variant }) => theme.buttons[$variant || 'secondary'].hover};
+    opacity: 0.95;
   }
 `;
 
@@ -99,6 +105,7 @@ export const Total = styled.h5`
   text-align: right;
   margin: 1rem 0;
   font-size: 1.1rem;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const CupomArea = styled.div`
@@ -110,11 +117,15 @@ export const CupomArea = styled.div`
 
   input {
     padding: 8px 12px;
-    border: 1px solid #ccc;
+    border: 1px solid ${({ theme }) => theme.name === 'dark' ? '#495057' : '#ccc'};
+    background-color: ${({ theme }) => theme.colors.inputBg};
+    color: ${({ theme }) => theme.colors.inputColor};
     border-radius: 8px;
     font-family: "Poppins", sans-serif;
     flex: 1;
     min-width: 150px;
+    outline: none;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
   }
 `;
 
@@ -132,22 +143,25 @@ export const ModalOverlay = styled.div`
 `;
 
 export const ModalConteudo = styled.div`
-  background: rgba(253, 242, 230, 0.95);
+  background: ${({ theme }) => theme.name === 'dark' ? 'rgba(43, 48, 53, 0.95)' : 'rgba(253, 242, 230, 0.95)'};
   backdrop-filter: blur(10px);
   padding: 2rem;
   border-radius: 1rem;
   width: 90%;
   max-width: 400px;
   text-align: center;
+  color: ${({ theme }) => theme.colors.text};
+  border: 1px solid ${({ theme }) => theme.name === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'transparent'};
   animation: ${subir} 0.3s ease;
+  transition: background-color 0.3s, color 0.3s;
 `;
 
 export const BtnMetodo = styled.button`
   padding: 10px 20px;
-  border: ${({ $ativo }) => ($ativo ? "2px solid #28a745" : "2px solid #ccc")};
+  border: ${({ theme, $ativo }) => ($ativo ? `2px solid ${theme.colors.accentGreen}` : `2px solid ${theme.name === 'dark' ? '#495057' : '#ccc'}`)};
   border-radius: 10px;
-  background: ${({ $ativo }) => ($ativo ? "#d4edda" : "#fff")};
-  color: ${({ $ativo }) => ($ativo ? "#155724" : "#333")};
+  background: ${({ theme, $ativo }) => ($ativo ? (theme.name === 'dark' ? 'rgba(159, 227, 176, 0.2)' : '#d4edda') : (theme.name === 'dark' ? '#2b3035' : '#fff'))};
+  color: ${({ theme, $ativo }) => ($ativo ? (theme.name === 'dark' ? '#9fe3b0' : '#155724') : theme.colors.text)};
   font-weight: ${({ $ativo }) => ($ativo ? "bold" : "normal")};
   cursor: pointer;
   font-family: "Poppins", sans-serif;

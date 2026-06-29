@@ -29,8 +29,8 @@ const NavItem = styled.li`
 
 const NavLink = styled(Link)`
   text-decoration: none;
-  color: white;
-  background-color: #ffb86b;
+  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.primary};
   padding: 12px 15px;
   border-radius: 20px;
   font-weight: bold;
@@ -43,8 +43,8 @@ const NavLink = styled(Link)`
   white-space: nowrap;
 
   &:hover {
-    background-color: #c8a2ff;
-    color: #4a4a4a;
+    background-color: ${({ theme }) => theme.colors.primaryHover};
+    color: ${({ theme }) => theme.colors.text};
     transform: translateY(-2px);
     box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
   }

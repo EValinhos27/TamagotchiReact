@@ -7,29 +7,22 @@ import { styled } from "styled-components";
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
-  border: 1px solid #ffffff;
+  background-color: ${({ theme }) => theme.colors.cardBg};
+  border: 1px solid ${({ theme }) => theme.colors.cardBorder};
   border-radius: 20px;
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: ${({ theme }) => theme.colors.cardShadow};
   padding: 15px 24px;
   gap: 5px;
   width: 95%;
   box-sizing: border-box;
   margin: 1rem;
   z-index: 2;
+  color: ${({ theme }) => theme.colors.text};
   font-family: "Poppins", Arial, Helvetica, sans-serif;
  
   opacity: ${({ $saindo }) => ($saindo ? 0 : 1)};
   transform: ${({ $saindo }) => ($saindo ? "translateY(-10rem)" : "translateY(0)")};
-  transition: opacity 0.3s ease, transform 0.3s ease;
- 
-  /* Dark mode — card escuro */
-  [data-theme="dark"] & {
-    background-color: #2b3035;
-    border-color: #495057;
-    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.4);
-    color: #f8f9fa;
-  }
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
  
   @media (min-width: 500px) {
     padding-bottom: 10px;
@@ -64,15 +57,11 @@ export const Title = styled.h1`
  
 export const Subtitle = styled.p`
   font-size: 0.7rem;
-  color: #8b5e00;
+  color: ${({ theme }) => theme.colors.textMuted};
   text-align: center;
   margin: 0;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
- 
-  /* Dark mode — subtítulo mais claro para contraste */
-  [data-theme="dark"] & {
-    color: #adb5bd;
-  }
+  transition: color 0.3s ease;
  
   @media (min-width: 520px) {
     font-size: 0.9rem;
@@ -86,44 +75,30 @@ export const Label = styled.label`
   font-family: "Poppins", Arial, Helvetica, sans-serif;
 `;
  
-// Borda estilo "baixo-relevo": topo/esquerda escuros, direita/baixo claros
 export const Input = styled.input`
   border-radius: 15px;
   width: 100%;
   height: 40px;
-  background-color: #f5efe6;
+  background-color: ${({ theme }) => theme.colors.inputBg};
   text-indent: 10px;
   box-sizing: border-box;
   font-size: 1rem;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   outline: none;
-  color: inherit;
+  color: ${({ theme }) => theme.colors.inputColor};
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
  
-  border-top: 1.5px solid #b8a898;
-  border-left: 1.5px solid #b8a898;
-  border-right: 1.5px solid #e8ddd3;
-  border-bottom: 1.5px solid #e8ddd3;
+  border-top: 1.5px solid ${({ theme }) => theme.colors.inputBorderTop};
+  border-left: 1.5px solid ${({ theme }) => theme.colors.inputBorderLeft};
+  border-right: 1.5px solid ${({ theme }) => theme.colors.inputBorderRight};
+  border-bottom: 1.5px solid ${({ theme }) => theme.colors.inputBorderBottom};
  
-  &:focus {
-    border: 1.5px solid #3f76c2;
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.textMuted};
   }
  
-  /* Dark mode — input escuro com borda sutil */
-  [data-theme="dark"] & {
-    background-color: #343a40;
-    color: #ffffff;
-    border-top: 1.5px solid #212529;
-    border-left: 1.5px solid #212529;
-    border-right: 1.5px solid #495057;
-    border-bottom: 1.5px solid #495057;
- 
-    &::placeholder {
-      color: #6c757d;
-    }
- 
-    &:focus {
-      border: 1.5px solid #3f76c2;
-    }
+  &:focus {
+    border: 1.5px solid ${({ theme }) => theme.colors.blue};
   }
 `;
  
@@ -133,17 +108,14 @@ export const ForgotLink = styled.a`
   text-align: center;
   font-size: 0.8rem;
   padding: 5px;
-  color: black;
+  color: ${({ theme }) => theme.colors.text};
   text-decoration: none;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
+  transition: color 0.3s ease;
  
   &:hover {
     text-decoration: underline;
-  }
- 
-  /* Dark mode */
-  [data-theme="dark"] & {
-    color: #adb5bd;
+    color: ${({ theme }) => theme.colors.blue};
   }
  
   @media (min-width: 400px) { width: 40%; }
@@ -153,36 +125,35 @@ export const ForgotLink = styled.a`
   @media (min-width: 1500px) { width: 17%; }
 `;
  
-// Borda estilo "alto-relevo": topo/esquerda claros, direita/baixo escuros
 export const Button = styled.button`
   width: 100%;
   height: 40px;
   border-radius: 20px;
   margin-top: 10px;
   color: white;
-  background-color: #3f76c2;
+  background-color: ${({ theme }) => theme.colors.blue};
   font-size: 1rem;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   cursor: pointer;
-  transition: background-color 300ms;
+  transition: background-color 300ms, transform 100ms;
  
-  border-top: 2px solid #6a9fd4;
-  border-left: 2px solid #6a9fd4;
-  border-right: 2px solid #1a3a5c;
-  border-bottom: 2px solid #1a3a5c;
+  border-top: 2px solid ${({ theme }) => theme.name === 'dark' ? '#495057' : '#6a9fd4'};
+  border-left: 2px solid ${({ theme }) => theme.name === 'dark' ? '#495057' : '#6a9fd4'};
+  border-right: 2px solid ${({ theme }) => theme.name === 'dark' ? '#212529' : '#1a3a5c'};
+  border-bottom: 2px solid ${({ theme }) => theme.name === 'dark' ? '#212529' : '#1a3a5c'};
  
   opacity: ${({ disabled }) => (disabled ? 0.7 : 1)};
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
  
   &:hover:not(:disabled) {
-    background-color: #3562a1;
+    background-color: ${({ theme }) => theme.colors.blueHover};
   }
  
   &:active:not(:disabled) {
-    border-top: 2px solid #1a3a5c;
-    border-left: 2px solid #1a3a5c;
-    border-right: 2px solid #6a9fd4;
-    border-bottom: 2px solid #6a9fd4;
+    border-top: 2px solid ${({ theme }) => theme.name === 'dark' ? '#212529' : '#1a3a5c'};
+    border-left: 2px solid ${({ theme }) => theme.name === 'dark' ? '#212529' : '#1a3a5c'};
+    border-right: 2px solid ${({ theme }) => theme.name === 'dark' ? '#495057' : '#6a9fd4'};
+    border-bottom: 2px solid ${({ theme }) => theme.name === 'dark' ? '#495057' : '#6a9fd4'};
     transform: translateY(1px);
   }
 `;
@@ -195,12 +166,12 @@ export const FooterText = styled.p`
 `;
  
 export const FooterLink = styled.span`
-  color: #3f76c2;
+  color: ${({ theme }) => theme.colors.blue};
   cursor: pointer;
   text-decoration: underline;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
  
-  &:hover { color: #3562a1; }
+  &:hover { color: ${({ theme }) => theme.colors.blueHover}; }
 `;
  
 export const ErrorMessage = styled.p`
@@ -209,4 +180,4 @@ export const ErrorMessage = styled.p`
   text-align: center;
   margin: 4px 0 0;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
-`;
+`;

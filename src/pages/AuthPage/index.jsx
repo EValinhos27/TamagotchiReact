@@ -10,6 +10,7 @@
  
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useTheme } from "../../contexts/ThemeContext";
 import { useAuth } from "../../hooks/useAuth";
 import { LoginForm } from "../../components/LoginForm";
 import { RegisterForm } from "../../components/RegisterForm";
@@ -42,6 +43,7 @@ const IMAGENS = {
 export default function AuthPage() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const { themeName: tema, setThemeName: setTema } = useTheme();
  
   // Qual formulário está ativo
   const [formAtivo, setFormAtivo] = useState("login");
@@ -53,10 +55,6 @@ export default function AuthPage() {
  
   // Visibilidade do ícone fugitivo (só no form de login)
   const [iconeVisivel, setIconeVisivel] = useState(true);
- 
-  // Tema da página: "light" ou "dark"
-  // O tema é aplicado via atributo data-theme no <html>, afetando toda a página
-  const [tema, setTema] = useState("light");
  
   // Refs para o cursor seguidor
   const seguidorRef = useRef(null);
@@ -72,15 +70,7 @@ export default function AuthPage() {
       navigate(ROTA_POS_AUTH, { replace: true });
     }
   }, [isAuthenticated, navigate]);
- 
-  // =============================================================================
-  // Aplica o tema no <html> ao mudar — afeta todo o CSS que usa [data-theme]
-  // =============================================================================
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", tema);
-    // Compatibilidade com Bootstrap (usado no projeto original)
-    document.documentElement.setAttribute("data-bs-theme", tema);
-  }, [tema]);
+
  
   // =============================================================================
   // Cursor seguidor — loop de animação com interpolação suave
