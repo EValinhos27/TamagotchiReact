@@ -22,30 +22,6 @@ export const MainContainer = styled.main`
   @media (min-width: 1024px) { font-size: 1.25rem; }
 `;
 
-export const BreadcrumbNav = styled.nav`
-  padding: 1rem;
-  text-align: left;
-  background-color: rgba(255, 255, 255, 0.5); 
-  
-  ol {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-    gap: 10px;
-  }
-
-  a {
-    text-decoration: none;
-    color: #3f76c2;
-    font-weight: 500;
-  }
-
-  .active {
-    color: #6c757d;
-  }
-`;
-
 export const ContentContainer = styled.div`
   background-color: var(--color-bg-container);
   padding: 1.25rem;

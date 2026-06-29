@@ -28,13 +28,6 @@ const Favorites = () => {
 
   return (
     <S.MainContainer>
-      <S.BreadcrumbNav aria-label="breadcrumb">
-        <ol>
-          <li><a href="#!" onClick={(e) => { e.preventDefault(); navigate('/home'); }}>Home</a> /</li>
-          <li className="active">Favoritos</li>
-        </ol>
-      </S.BreadcrumbNav>
-
       <S.ContentContainer>
         <S.Title>🧸 Favoritos</S.Title>
 
