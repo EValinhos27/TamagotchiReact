@@ -1,11 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { actions, tamagotchis, SATISFACTION_DEFAULTS } from './helper/helper';
 import tamaGif from '../../assets/tama-gif.gif';
 import {
   SlideContainer,
-  SlideClipper,
-  SlideWrapper,
-  SlidePanel,
   GifWrapper,
   GifImage,
   SpeechBubble,
@@ -237,80 +235,98 @@ export const ChatComponent = () => {
 
   return (
     <SlideContainer>
-      <SlideClipper>
-      <SlideWrapper $open={isChatOpen}>
-        <SlidePanel>
-          <GifWrapper>
-            <SpeechBubble>{phrases[phraseIdx]}</SpeechBubble>
-            <GifImage src={tamaGif} onClick={() => setIsChatOpen(true)} alt="Tamagotchi" />
-          </GifWrapper>
-        </SlidePanel>
-          <SlidePanel>
-          <Container>
-      {/* ACTION BUTTONS */}
-      <ActionsRow>
-        {actions.map((action) => {
-          const Icon = action.icon;
-          return (
-            <ActionButton
-              key={action.id}
-              $bgColor={action.backgroundColor}
-              onClick={() => handleAction(action)}
-            >
-              <IconWrapper>
-                <Icon fill={action.iconColor} size={40} />
-              </IconWrapper>
-              <ActionLabel>{action.label}</ActionLabel>
-            </ActionButton>
-          );
-        })}
-      </ActionsRow>
+      <AnimatePresence initial={false} mode="wait">
+        {!isChatOpen ? (
+          <motion.div
+            key="gif"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+          >
+            <GifWrapper>
+              <SpeechBubble>{phrases[phraseIdx]}</SpeechBubble>
+              <GifImage src={tamaGif} onClick={() => setIsChatOpen(true)} alt="Tamagotchi" />
+            </GifWrapper>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="chat"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+          >
+            <Container>
+                {/* ACTION BUTTONS */}
+                <ActionsRow>
+                  {actions.map((action) => {
+                    const Icon = action.icon;
+                    return (
+                      <ActionButton
+                        key={action.id}
+                        type="button"
+                        $bgColor={action.backgroundColor}
+                        onClick={() => handleAction(action)}
+                      >
+                        <IconWrapper>
+                          <Icon fill={action.iconColor} size={40} />
+                        </IconWrapper>
+                        <ActionLabel>{action.label}</ActionLabel>
+                      </ActionButton>
+                    );
+                  })}
+                </ActionsRow>
 
-      {/* SATISFAÇÃO */}
-      <SatisfactionContainer>
-        <StatusLabel>Status:</StatusLabel>
-        <SatisfactionTrack>
-          <SatisfactionFill $value={satisfaction} />
-        </SatisfactionTrack>
-        <SatisfactionPercent>{satisfaction}%</SatisfactionPercent>
-      </SatisfactionContainer>
+                {/* SATISFAÇÃO */}
+                <SatisfactionContainer>
+                  <StatusLabel>Status:</StatusLabel>
+                  <SatisfactionTrack>
+                    <SatisfactionFill $value={satisfaction} />
+                  </SatisfactionTrack>
+                  <SatisfactionPercent>{satisfaction}%</SatisfactionPercent>
+                </SatisfactionContainer>
 
-      {/* CHATBOX */}
-      <Chatbox>
-        {/* TOP CHAT */}
-        <ChatHeader>
-          <PetImage src={active.image} />
-          <PetName>{active.name}</PetName>
-          <CloseButton onClick={() => setIsChatOpen(false)}>X</CloseButton>
-        </ChatHeader>
+                {/* CHATBOX */}
+                <Chatbox>
+                  {/* TOP CHAT */}
+                  <ChatHeader>
+                    <PetImage src={active.image} />
+                    <PetName>{active.name}</PetName>
+                    <CloseButton onClick={() => setIsChatOpen(false)}>X</CloseButton>
+                  </ChatHeader>
 
-        {/* MESSAGES */}
-        <MessagesContainer>
-          {messages.map((msg, idx) => (
-            <MessageBubble key={idx} $isUser={msg.role === 'user'}>
-              {msg.content}
-            </MessageBubble>
-          ))}
-          {loading && (
-            <LoadingMessage>{active.name} esta pensando...</LoadingMessage>
+                  {/* MESSAGES */}
+                  <MessagesContainer>
+                    {messages.map((msg, idx) => (
+                      <MessageBubble key={idx} $isUser={msg.role === 'user'}>
+                        {msg.content}
+                      </MessageBubble>
+                    ))}
+                    {loading && (
+                      <LoadingMessage>{active.name} esta pensando...</LoadingMessage>
+                    )}
+                    <div ref={chatEndRef} />
+                  </MessagesContainer>
+
+                  {/* INPUT */}
+                  <InputRow>
+                    <InputField
+                      type="text"
+                      placeholder="Mensagem..."
+                      value={inputText}
+                      onChange={(e) => setInputText(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                    />
+                    <SendButton onClick={() => sendMessage(inputText)}>
+                      Enviar
+                    </SendButton>
+                  </InputRow>
+                </Chatbox>
+              </Container>
+            </motion.div>
           )}
-          <div ref={chatEndRef} />
-        </MessagesContainer>
-
-        {/* INPUT */}
-        <InputRow>
-          <InputField
-            type="text"
-            placeholder="Mensagem..."
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-            onKeyDown={handleKeyDown}
-          />
-          <SendButton onClick={() => sendMessage(inputText)}>
-            Enviar
-          </SendButton>
-        </InputRow>
-      </Chatbox>
+        </AnimatePresence>
 
       {/* MODAL */}
       {showModal && (
@@ -338,9 +354,6 @@ export const ChatComponent = () => {
           </ModalContent>
         </ModalOverlay>
       )}
-    </Container>
-        </SlidePanel>
-      </SlideWrapper>
     </SlideContainer>
   );
 };

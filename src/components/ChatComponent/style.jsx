@@ -3,22 +3,10 @@ import styled from 'styled-components';
 // ── Slide / toggle  ──
 export const SlideContainer = styled.div`
   width: 16rem;
-`;
-
-export const SlideClipper = styled.div`
-  overflow: hidden;
-`;
-
-export const SlideWrapper = styled.div`
-  display: flex;
-  width: 200%;
-  transition: transform 0.35s ease;
-  transform: translateX(${(p) => (p.$open ? '-50%' : '0')});
-`;
-
-export const SlidePanel = styled.div`
-  width: 50%;
-  flex-shrink: 0;
+  position: fixed;
+  bottom: 1rem;
+  right: .5rem;
+  z-index: 99;
 `;
 
 export const GifImage = styled.img`
@@ -32,12 +20,12 @@ export const GifWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 3.5rem;
+  padding-top: 10rem;
 `;
 
 export const SpeechBubble = styled.div`
   position: absolute;
-  top: 0.5rem;
+  top: 7.5rem;
   left: 50%;
   transform: translateX(-50%);
   background: white;
@@ -98,7 +86,7 @@ export const ActionsRow = styled.div`
   gap: 10px;
 `;
 
-export const ActionButton = styled.div`
+export const ActionButton = styled.button`
   display: flex;
   background-color: ${(p) => p.$bgColor};
   width: 5rem;
