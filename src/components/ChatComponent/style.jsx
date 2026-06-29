@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 // ── Slide / toggle  ──
 export const SlideContainer = styled.div`
-  width: 16rem;
+  width: 20rem;
   position: fixed;
-  bottom: 1rem;
-  right: .5rem;
-  z-index: 99;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
 `;
 
 export const GifImage = styled.img`
@@ -18,6 +18,7 @@ export const GifImage = styled.img`
 export const GifWrapper = styled.div`
   position: relative;
   display: flex;
+  right:-4rem;
   flex-direction: column;
   align-items: center;
   padding-top: 10rem;
@@ -77,19 +78,23 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 10px;
   width: 16rem;
+  position: relative;
+  z-index: 1;
 `;
 
 export const ActionsRow = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  gap: 10px;
+  padding-bottom: 0.6rem;
+  gap: 6px;
 `;
 
 export const ActionButton = styled.button`
   display: flex;
   background-color: ${(p) => p.$bgColor};
-  width: 5rem;
+  flex: 1;
+  min-width: 0;
   height: 4rem;
   flex-direction: column;
   justify-content: center;
@@ -157,7 +162,7 @@ export const Chatbox = styled.div`
   background-color: #aad9f3;
   border: 2px solid black;
   height: 20rem;
-  width: 16rem;
+  width: 20rem;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
