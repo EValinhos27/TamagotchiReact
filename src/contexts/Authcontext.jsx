@@ -90,27 +90,44 @@ export function AuthProvider({ children }) {
   //   - TOKEN_REFRESHED: token renovado automaticamente (transparente)
   // =============================================================================
   useEffect(() => {
-    // Passo 1: Verifica se já existe uma sessão ativa no momento do carregamento
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      const authUser = session?.user ?? null;
-      setUser(authUser);
-      await loadProfile(authUser);
-      setLoading(false); // Só marca como "pronto" depois de buscar tudo
-    });
- 
-    // Passo 2: Escuta mudanças futuras de estado (login, logout, expiração)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
+    let isMounted = true;
+
+    // Passo 1: Verifica se já existe uma sessão ativa de forma segura
+    supabase.auth.getSession()
+      .then(async ({ data: { session } }) => {
+        if (!isMounted) return;
+        
         const authUser = session?.user ?? null;
         setUser(authUser);
         await loadProfile(authUser);
-        // Não altera `loading` aqui: ele só é relevante na carga inicial
+      })
+      .catch((err) => {
+        console.error('[AuthContext] Erro ao buscar sessão inicial:', err);
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false); // Garante que o loading desliga SEMPRE
+      });
+
+    // Passo 2: Escuta mudanças de estado (inclusive falhas de token / erro 400)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (!isMounted) return;
+
+        const authUser = session?.user ?? null;
+        setUser(authUser);
+        await loadProfile(authUser);
+        
+        // Força o encerramento do loading se ele estiver ativo por causa de 
+        // um travamento de navegação anterior ou revalidação abrupta
+        setLoading(false); 
       }
     );
- 
-    // Cleanup: cancela o listener quando o componente é desmontado
-    // Evita memory leaks e chamadas em componentes já removidos da tela
-    return () => subscription.unsubscribe();
+
+    // Cleanup: cancela o listener e marca como desmontado
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
   }, [loadProfile]);
  
   // =============================================================================

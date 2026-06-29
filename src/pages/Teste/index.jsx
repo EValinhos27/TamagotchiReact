@@ -1,5 +1,6 @@
-import { useAuth } from '../../hooks/useAuth'; // Ajuste os caminhos relativos (../) conforme sua estrutura
+import { useAuth } from '../../hooks/useAuth';
 
+// Essa página só existe para ter um botão de deslogar
 export default function Teste() {
   // Puxa os dados do perfil e a função de logout do contexto
   const { profile, signOut } = useAuth();

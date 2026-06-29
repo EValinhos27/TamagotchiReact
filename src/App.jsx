@@ -1,30 +1,20 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { ProtectedRoute } from './routers/ProtectedRoute'; // Ajuste o caminho se necessário
-import AuthPage from './pages/AuthPage';
-import Home from './pages/Teste';
+import { ThemeProvider } from "styled-components";
+import { AppProvider } from "./contexts/AppContext";
+import { GlobalStyles } from "./styles/GlobalStyles"; // Mantendo o padrão de estilos da develop
+import { theme } from "./styles/theme";
+import Routers from "./routers/Routes";
+import { ChatComponent } from "./components/ChatComponent/index.jsx";
 
-// Importe também suas outras páginas conforme precisar delas:
-// import ProfilePage from './pages/ProfilePage';
-// import OrdersPage from './pages/OrdersPage';
-
-function App() {
+export default function App() {
   return (
-    <Routes>
-      {/* Rota pública: Login / Cadastro */}
-      <Route path="/login" element={<AuthPage />} />
-
-      {/* Rotas protegidas — Só acessa quem estiver logado */}
-      <Route element={<ProtectedRoute />}>
-        <Route path="/teste" element={<Home />} />
-        {/* Exemplo de rota protegida (adicione as suas aqui) */}
-        {/* <Route path="/perfil" element={<ProfilePage />} /> */}
-        {/* <Route path="/pedidos" element={<OrdersPage />} /> */}
-      </Route>
-
-      {/* Rota de captura (Opcional): Redireciona qualquer rota desconhecida para o login */}
-      <Route path="*" element={<Navigate to="/login" replace />} />
-    </Routes>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <AppProvider>
+        {/* Mantendo o Chat que a develop adicionou no escopo global */}
+        <ChatComponent />
+        {/* O componente Routers vai gerenciar todas as páginas */}
+        <Routers />
+      </AppProvider>
+    </ThemeProvider>
   );
 }
-
-export default App;

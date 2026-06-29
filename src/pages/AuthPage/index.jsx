@@ -30,7 +30,7 @@ import personagem1 from '../../assets/personagem1.png';
 import personagem2 from '../../assets/personagem2.png';
  
 // Rota de destino pós-autenticação — ajuste conforme sua aplicação
-const ROTA_POS_AUTH = "/teste";
+const ROTA_POS_AUTH = "/";
  
 // Caminhos das imagens — ajuste conforme sua pasta src/assets/
 const IMAGENS = {

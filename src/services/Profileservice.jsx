@@ -28,10 +28,20 @@ export async function getProfileById(userId) {
   const { data, error } = await supabase
     .from('profiles')
     .select('*')
-    .eq('id', userId)
-    .single(); // Retorna um objeto único em vez de um array
+    .eq('id', userId);
  
-  return handleResponse(data, error);
+  if (error) {
+    console.error('[Supabase Error]', error.message);
+    throw new Error(error.message);
+  }
+
+  // Se o array vier vazio, significa que o perfil não existe. Retornamos null amigavelmente.
+  if (!data || data.length === 0) {
+    return null; 
+  }
+
+  // Retorna o primeiro e único objeto encontrado
+  return data[0];
 }
  
 // =============================================================================
