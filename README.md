@@ -1,14 +1,15 @@
 # React + Vite
 # Tamagotchi React 🐾
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 E-commerce temático de Tamagotchi com personagens interativos movidos por IA. Os usuários podem navegar pelo catálogo de produtos, conversar com seu Tamagotchi favorito e acompanhar o nível de satisfação do bichinho em tempo real.
 
-Currently, two official plugins are available:
+
+Atualmente, dois plugins oficiais estão disponíveis:
 ---
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+  
 ## Funcionalidades
 
 ## React Compiler
