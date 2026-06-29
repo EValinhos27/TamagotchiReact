@@ -95,10 +95,12 @@ export const ChatComponent = () => {
   const chatEndRef = useRef(null);
   const lastActionRef = useRef({});
 
-  const sendToApi = async (conversation) => {
+  const API_URL = 'https://api-tamagochi.onrender.com';
+
+const sendToApi = async (conversation) => {
     setLoading(true);
     try {
-      const response = await fetch('/api/chat', {
+      const response = await fetch(`${API_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: conversation, systemPrompt: active.systemPrompt }),
