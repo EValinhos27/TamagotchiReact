@@ -1,9 +1,10 @@
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import Carousel from "../../components/Carousel";
 import MessageContainer from "../../components/MessageContainer";
 import logoImg from "../../assets/home/Logo.jpeg";
 import deviceImg from "../../assets/home/device.png";
 import { useProdutos } from "../../hooks/produtoAPI";
+import { useAuth } from "../../hooks/useAuth";
 import {
   ActionBtn,
   Cumpom,
@@ -26,8 +27,9 @@ import ProdutoCard from "../../components/ProdutoCard";
 export default function Home() {
   const { produtos, loading } = useProdutos();
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
-  const cliente = JSON.parse(localStorage.getItem("cliente"));
+  // const cliente = JSON.parse(localStorage.getItem("cliente"));
 
   const personagens = produtos
     .filter((p) => p.category === "personagem")
@@ -69,9 +71,12 @@ export default function Home() {
               </NavItem>
               <NavItem>
                 <NavLink
-                  onClick={() => navigate(cliente ? "/perfil" : "/login")}
+                  onClick={() => {
+                    // Se estiver autenticado, vai para o teste/perfil. Se não, vai para o login.
+                    navigate(isAuthenticated ? "/teste" : "/login");
+                  }}
                 >
-                  {cliente ? "Minha conta" : "Login"}
+                  {isAuthenticated ? "Minha conta" : "Login"}
                 </NavLink>
               </NavItem>
               <NavItem>

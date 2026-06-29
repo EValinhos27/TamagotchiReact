@@ -97,6 +97,8 @@ export const NavLink = styled.a`
   width: 100%;
   white-space: nowrap;
   cursor: pointer;
+  position: relative;
+  z-index: 9999;
 
   &:hover {
     background-color: #c8a2ff;
