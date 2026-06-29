@@ -61,14 +61,18 @@ export const SpeechBubble = styled.div`
 `;
 
 export const CloseButton = styled.button`
+
   background: none;
   border: none;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 700;
   cursor: pointer;
   margin-left: auto;
   line-height: 1;
   padding: 0 4px;
+  &:hover{
+    color:white
+  }
 `;
 
 // ── Chat interno  ──
@@ -125,6 +129,8 @@ export const SatisfactionContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  position:relative;
+  left:2.5rem
 `;
 
 export const StatusLabel = styled.span`
@@ -173,8 +179,10 @@ export const Chatbox = styled.div`
 
 export const ChatHeader = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-top: 4px;
+  width: 100%;
 `;
 
 export const PetImage = styled.img`

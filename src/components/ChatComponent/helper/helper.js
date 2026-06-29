@@ -1,6 +1,6 @@
 import { Apple, Hand, Heart, Settings } from 'lucide-react';
-import kuchiImg from '../../../assets/kuchipatchitchi.png';
-import mimiImg from '../../../assets/mimitchi.png';
+import kuchiImg from '../../../assets/kuchipatchitchi.webp';
+import mimiImg from '../../../assets/mimitchi.webp';
 
 export const actions = [
   {
