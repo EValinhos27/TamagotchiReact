@@ -10,7 +10,6 @@ export const Card = styled.div`
       ? "0 0 10px rgba(212,175,55,0.7), 0 0 20px rgba(212,175,55,0.5)"
       : "none"};
   position: relative;
-  aspect-ratio: 1;
 
   &:hover .card-price {
     display: none;
