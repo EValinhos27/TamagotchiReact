@@ -49,7 +49,7 @@ const loadActive = () => {
   try {
     const stored = localStorage.getItem(ACTIVE_KEY);
     if (stored && tamagotchis[stored]) return stored;
-  } catch {}
+  } catch { }
   return 'kuchipatchitchi';
 };
 
@@ -235,6 +235,26 @@ export const ChatComponent = () => {
 
   return (
     <SlideContainer>
+      {isChatOpen && (
+        <ActionsRow>
+          {actions.map((action) => {
+            const Icon = action.icon;
+            return (
+              <ActionButton
+                key={action.id}
+                type="button"
+                $bgColor={action.backgroundColor}
+                onClick={() => handleAction(action)}
+              >
+                <IconWrapper>
+                  <Icon fill={action.iconColor} size={40} />
+                </IconWrapper>
+                <ActionLabel>{action.label}</ActionLabel>
+              </ActionButton>
+            );
+          })}
+        </ActionsRow>
+      )}
       <AnimatePresence initial={false} mode="wait">
         {!isChatOpen ? (
           <motion.div
@@ -256,77 +276,62 @@ export const ChatComponent = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
           >
             <Container>
-                {/* ACTION BUTTONS */}
-                <ActionsRow>
-                  {actions.map((action) => {
-                    const Icon = action.icon;
-                    return (
-                      <ActionButton
-                        key={action.id}
-                        type="button"
-                        $bgColor={action.backgroundColor}
-                        onClick={() => handleAction(action)}
-                      >
-                        <IconWrapper>
-                          <Icon fill={action.iconColor} size={40} />
-                        </IconWrapper>
-                        <ActionLabel>{action.label}</ActionLabel>
-                      </ActionButton>
-                    );
-                  })}
-                </ActionsRow>
-
                 {/* SATISFAÇÃO */}
                 <SatisfactionContainer>
-                  <StatusLabel>Status:</StatusLabel>
-                  <SatisfactionTrack>
-                    <SatisfactionFill $value={satisfaction} />
-                  </SatisfactionTrack>
-                  <SatisfactionPercent>{satisfaction}%</SatisfactionPercent>
-                </SatisfactionContainer>
+                <StatusLabel>Status:</StatusLabel>
+                <SatisfactionTrack>
+                  <SatisfactionFill $value={satisfaction} />
+                </SatisfactionTrack>
+                <SatisfactionPercent>{satisfaction}%</SatisfactionPercent>
+              </SatisfactionContainer>
 
-                {/* CHATBOX */}
-                <Chatbox>
-                  {/* TOP CHAT */}
-                  <ChatHeader>
+              {/* CHATBOX */}
+              <Chatbox>
+                {/* TOP CHAT */}
+                <ChatHeader>
+                  <div style={{display:'flex',
+                    alignItems:'center',
+                    justifyContent:'space-between',width:'100%'}}>
                     <PetImage src={active.image} />
                     <PetName>{active.name}</PetName>
-                    <CloseButton onClick={() => setIsChatOpen(false)}>X</CloseButton>
-                  </ChatHeader>
+                  </div>
+                  <CloseButton onClick={() => setIsChatOpen(false)}>X</CloseButton>
+                </ChatHeader>
 
-                  {/* MESSAGES */}
-                  <MessagesContainer>
-                    {messages.map((msg, idx) => (
-                      <MessageBubble key={idx} $isUser={msg.role === 'user'}>
-                        {msg.content}
-                      </MessageBubble>
-                    ))}
-                    {loading && (
-                      <LoadingMessage>{active.name} esta pensando...</LoadingMessage>
-                    )}
-                    <div ref={chatEndRef} />
-                  </MessagesContainer>
+                {/* MESSAGES */}
+                <MessagesContainer>
+                  {messages.map((msg, idx) => (
+                    <MessageBubble key={idx} $isUser={msg.role === 'user'}>
+                      {msg.content}
+                    </MessageBubble>
+                  ))}
+                  {loading && (
+                    <LoadingMessage>{active.name} esta pensando...</LoadingMessage>
+                  )}
+                  <div ref={chatEndRef} />
+                </MessagesContainer>
 
-                  {/* INPUT */}
-                  <InputRow>
-                    <InputField
-                      type="text"
-                      placeholder="Mensagem..."
-                      value={inputText}
-                      onChange={(e) => setInputText(e.target.value)}
-                      onKeyDown={handleKeyDown}
-                    />
-                    <SendButton onClick={() => sendMessage(inputText)}>
-                      Enviar
-                    </SendButton>
-                  </InputRow>
-                </Chatbox>
-              </Container>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                {/* INPUT */}
+                <InputRow>
+                  <InputField
+                    type="text"
+                    placeholder="Mensagem..."
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                  />
+                  <SendButton onClick={() => sendMessage(inputText)}>
+                    Enviar
+                  </SendButton>
+                </InputRow>
+              </Chatbox>
+            </Container>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* MODAL */}
       {showModal && (
