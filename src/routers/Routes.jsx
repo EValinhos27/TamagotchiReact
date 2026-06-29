@@ -25,12 +25,12 @@ export default function Routers() {
 
           <Route
             path="/personagens"
-            element={<Collection categoria="personagem" />}
+            element={<Collection categoria="tamagotchi" />}
           />
 
           <Route
             path="/acessorios"
-            element={<Collection categoria="acessorio" />}
+            element={<Collection categoria="accessory" />}
           />
         </Route>
 

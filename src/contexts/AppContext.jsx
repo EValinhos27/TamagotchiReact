@@ -26,7 +26,7 @@ export function AppProvider({ children }) {
           id: produto.id,
           nome: produto.name,
           preco: produto.price,
-          imagem: produto.image,
+          imagem: produto.image_url,
           quantidade,
         });
       }
@@ -50,7 +50,7 @@ export function AppProvider({ children }) {
           id: produto.id,
           nome: produto.name,
           preco: produto.price,
-          imagem: produto.image,
+          imagem: produto.image_url,
           descricao: produto.description,
         });
         texto = "Adicionado à Lista de Desejos";

@@ -1,4 +1,4 @@
-import { useProdutos } from "../../hooks/ProdutoAPI";
+import { useProdutos } from "../../hooks/useProdutos";
 import ProdutoCard from "../../components/ProdutoCard";
 import Footer from "../../components/Footer";
 import MessageContainer from "../../components/MessageContainer";
@@ -16,9 +16,11 @@ export default function Collection({ categoria }) {
   // categoria === "personagem" ? colecaoPersonagens : colecaoAcessorios;
 
   const bannerAlt =
-    categoria === "personagem" ? "Coleção Personagens" : "Coleção Acessórios";
+  categoria === "tamagotchi"
+    ? "Coleção Tamagotchis"
+    : "Coleção Acessórios";
 
-  const filtrados = produtos.filter((p) => p.category === categoria);
+  const filtrados = produtos.filter((p) => p.type === categoria);
 
   return (
     <PageWrapper>

@@ -90,7 +90,7 @@ export async function getProductsByType(type) {
 // @param {object} productData — { name, description?, price, image_url?, type }
 // @returns {object} — Produto criado
 // =============================================================================
-export async function createProduct({ name, description, price, image_url, type }) {
+export async function createProduct({ name, description, price, image_url, type, color }) {
   // Validação de campos obrigatórios
   if (!name || name.trim() === '') {
     throw new Error('O campo "name" é obrigatório para criar um produto.');
