@@ -5,6 +5,7 @@ import Carrinho from "../pages/Carrinho";
 import { Layout } from "../Layout";
 import Sobre from "../pages/Sobre";
 import Collection from "../pages/Collection";
+import Favorites from "../pages/Favoritos";
 
 export default function Routers() {
   return (
@@ -14,6 +15,7 @@ export default function Routers() {
           <Route path="/" element={<Home />} />
           <Route path="/carrinho" element={<Carrinho />} />
           <Route path="/sobre" element={<Sobre />} />
+          <Route path="/favoritos" element={<Favorites />} />
           <Route
             path="/personagens"
             element={<Collection categoria="personagem" />}
@@ -22,6 +24,7 @@ export default function Routers() {
             path="/acessorios"
             element={<Collection categoria="acessorio" />}
           />
+          
         </Route>
       </Routes>
     </BrowserRouter>
