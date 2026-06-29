@@ -73,20 +73,6 @@ const Favorites = () => {
           )}
         </S.GlassCard>
       </S.ContentContainer>
-
-      <S.FooterContainer>
-        <img src={logoTamagotchi} alt="Logo tamagoshi" width="150" />
-        <div className="menu-footer">
-          <a href="/home">Home</a>
-          <a href="/collectionAcessorio">Acessórios</a>
-          <a href="/collectionPersonagem">Personagens</a>
-          <a href="/about">Quem somos</a>
-        </div>
-        <div className="footer-sociais">
-          <a href="#!">@tamagoshi_virtual</a>
-          <a href="mailto:tamagoshi@compre.ja.com">tamagoshi@compre.ja.com</a>
-        </div>
-      </S.FooterContainer>
     </S.MainContainer>
   );
 };

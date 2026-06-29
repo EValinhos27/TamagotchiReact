@@ -25,7 +25,7 @@ export const MainContainer = styled.main`
 export const BreadcrumbNav = styled.nav`
   padding: 1rem;
   text-align: left;
-  background-color: rgba(255, 255, 255, 0.5); /* Fundo leve para leitura */
+  background-color: rgba(255, 255, 255, 0.5); 
   
   ol {
     list-style: none;
@@ -52,7 +52,7 @@ export const ContentContainer = styled.div`
   border-radius: 0.625rem;
   width: 90%;
   max-width: 800px;
-  margin: 2rem auto; /* Substitui o mt-4 do Bootstrap */
+  margin: 2rem auto;
 `;
 
 export const Title = styled.h1`
@@ -115,30 +115,5 @@ export const ButtonDanger = styled.button`
 
   &:hover {
     background-color: #c9184a;
-  }
-`;
-
-export const FooterContainer = styled.footer`
-  background-color: #f5efe6;
-  margin-top: auto; /* Empurra o footer para o final da tela */
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 0;
-  border-top: 1px solid #e0d8cc;
-
-  .menu-footer, .footer-sociais, .footer-dev {
-    display: flex;
-    gap: 15px;
-    margin: 10px 0;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  a {
-    text-decoration: none;
-    color: black;
-    font-size: 0.9rem;
   }
 `;
