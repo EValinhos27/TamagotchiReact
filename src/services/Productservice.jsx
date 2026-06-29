@@ -109,7 +109,7 @@ export async function createProduct({ name, description, price, image_url, type 
  
   const { data, error } = await supabase
     .from('products')
-    .insert([{ name: name.trim(), description, price: Number(price), image_url, type }])
+    .insert([{ name: name.trim(), description, price: Number(price), image_url, type, color }])
     .select()
     .single();
  
