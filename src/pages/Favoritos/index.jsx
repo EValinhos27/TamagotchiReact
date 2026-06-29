@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import logoTamagotchi from '../../assets/logoTamagotchi.png';
-
 import * as S from './style'
 
 const Favorites = () => {
