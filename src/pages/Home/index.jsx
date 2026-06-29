@@ -3,7 +3,7 @@ import Carousel from "../../components/Carousel";
 import MessageContainer from "../../components/MessageContainer";
 import logoImg from "../../assets/home/Logo.jpeg";
 import deviceImg from "../../assets/home/device.png";
-import { useProdutos } from "../../hooks/produtoAPI";
+import { useProdutos } from "../../hooks/useProdutos";
 import { useAuth } from "../../hooks/useAuth";
 import {
   ActionBtn,
@@ -32,11 +32,11 @@ export default function Home() {
   // const cliente = JSON.parse(localStorage.getItem("cliente"));
 
   const personagens = produtos
-    .filter((p) => p.category === "personagem")
+    .filter((p) => p.type === "tamagotchi")
     .slice(0, 4);
 
   const acessorios = produtos
-    .filter((p) => p.category === "acessorio")
+    .filter((p) => p.type === "accessory")
     .slice(0, 4);
 
   const todos = [...produtos].sort(() => Math.random() - 0.5).slice(0, 20);

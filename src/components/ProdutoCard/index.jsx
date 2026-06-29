@@ -64,7 +64,7 @@ export default function ProdutoCard({ produto, isRaro = false }) {
         </HeartBtn>
       </CardHeader>
 
-      <CardImg src={produto.image} alt={produto.name} />
+      <CardImg src={produto.image_url} alt={produto.name} />
 
       <CardInfo>
         <CardDescription className="card-desc">
