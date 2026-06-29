@@ -1,16 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { ThemeProvider } from "styled-components";
+import { AppProvider } from "./contexts/AppContext";
+import { GlobalStyles } from "./styles/GlobalStyles"; // Mantendo o padrão de estilos da develop
+import { theme } from "./styles/theme";
+import Routers from "./routers/Routes";
+import { ChatComponent } from "./components/ChatComponent/index.jsx";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <>
-      <h1>Olá</h1>
-    </>
-  )
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <AppProvider>
+        {/* Mantendo o Chat que a develop adicionou no escopo global */}
+        <ChatComponent />
+        {/* O componente Routers vai gerenciar todas as páginas */}
+        <Routers />
+      </AppProvider>
+    </ThemeProvider>
+  );
 }
-
-export default App
