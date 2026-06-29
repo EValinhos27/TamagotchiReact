@@ -2,6 +2,12 @@ import { useEffect, useState, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { actions, tamagotchis, SATISFACTION_DEFAULTS } from './helper/helper';
 import tamaGif from '../../assets/tama-gif.gif';
+import mimiGif from '../../assets/mimi.gif';
+
+const gifMap = {
+  kuchipatchitchi: tamaGif,
+  mimitchi: mimiGif,
+};
 import {
   SlideContainer,
   GifWrapper,
@@ -268,7 +274,7 @@ const sendToApi = async (conversation) => {
           >
             <GifWrapper>
               <SpeechBubble>{phrases[phraseIdx]}</SpeechBubble>
-              <GifImage src={tamaGif} onClick={() => setIsChatOpen(true)} alt="Tamagotchi" />
+              <GifImage src={gifMap[activeId]} onClick={() => setIsChatOpen(true)} alt="Tamagotchi" />
             </GifWrapper>
           </motion.div>
         ) : (
@@ -294,9 +300,7 @@ const sendToApi = async (conversation) => {
               <Chatbox>
                 {/* TOP CHAT */}
                 <ChatHeader>
-                  <div style={{display:'flex',
-                    alignItems:'center',
-                    justifyContent:'space-between',width:'100%'}}>
+                  <div style={{display:'flex', alignItems:'center', gap:'8px'}}>
                     <PetImage src={active.image} />
                     <PetName>{active.name}</PetName>
                   </div>
