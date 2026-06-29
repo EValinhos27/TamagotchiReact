@@ -113,7 +113,7 @@ export const NavLink = styled.a`
 
 export const UserActions = styled.div`
   position: fixed;
-  right: 15px;
+  left: 15px;
   bottom: 20px;
   display: flex;
   flex-direction: column;
