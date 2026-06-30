@@ -132,6 +132,71 @@ export const tamagotchis = {
   },
 };
 
+/**
+ * buildSiteContextString — Monta um bloco de texto com informações do site
+ * para ser injetado no systemPrompt do mascote.
+ * O mascote só deve falar sobre o site quando perguntado explicitamente.
+ *
+ * @param {Array} products — Lista de produtos do Supabase
+ * @returns {string} — Bloco de contexto formatado
+ */
+export function buildSiteContextString(products = []) {
+  const pages = [
+    { path: '/', name: 'Home — Página inicial com vitrine de produtos' },
+    { path: '/personagens', name: 'Personagens — Tamagotchis à venda' },
+    { path: '/acessorios', name: 'Acessórios — Acessórios para Tamagotchis' },
+    { path: '/carrinho', name: 'Carrinho — Seu carrinho de compras' },
+    { path: '/sobre', name: 'Sobre Nós — Informações da loja' },
+    { path: '/perfil', name: 'Perfil — Seu perfil de usuário (precisa estar logado)' },
+    { path: '/login', name: 'Login — Página de login/cadastro' },
+  ];
+
+  const tamagotchis = products.filter((p) => p.type === 'tamagotchi');
+  const accessories = products.filter((p) => p.type === 'accessory');
+
+  const lines = [
+    '',
+    '=== CONTEXTO DO SITE (apenas responda se perguntado) ===',
+    '',
+    'Esse e um e-commerce de Tamagotchis virtuais e acessorios.',
+    'Abaixo estao as paginas disponiveis:',
+    ...pages.map((p) => `  - ${p.name} (${p.path})`),
+    '',
+    `Temos ${tamagotchis.length} tamagotchis e ${accessories.length} acessorios em catalogo.`,
+    '',
+    '=== PRODUTOS DISPONIVEIS ===',
+    '',
+    '--- Tamagotchis ---',
+    ...(tamagotchis.length > 0
+      ? tamagotchis.map(
+          (p) =>
+            `  - ${p.name}: R$ ${Number(p.price).toFixed(2)} — ${p.description || 'Sem descricao'}`,
+        )
+      : ['  (Nenhum tamagotchi cadastrado no momento)']),
+    '',
+    '--- Acessorios ---',
+    ...(accessories.length > 0
+      ? accessories.map(
+          (p) =>
+            `  - ${p.name}: R$ ${Number(p.price).toFixed(2)} — ${p.description || 'Sem descricao'}`,
+        )
+      : ['  (Nenhum acessorio cadastrado no momento)']),
+    '',
+    '=== PROMOCAO ATUAL ===',
+    'Cupom: 05/05 — 10% de desconto em qualquer produto (queima de estoque)',
+    '',
+    '=== REGRA IMPORTANTE ===',
+    '- NÃO mencione nada sobre o site, produtos, precos, paginas ou promocoes a menos que o usuario pergunte explicitamente.',
+    '- Se o usuario perguntar sobre precos, produtos ou paginas, responda com as informacoes acima.',
+    '- Se perguntarem "o que voce vende?", apresente um resumo amigavel dos produtos.',
+    '- Se perguntarem sobre precos, informe os valores corretamente.',
+    '- Se perguntarem sobre promocoes, mencione o cupom 05/05.',
+    '',
+  ];
+
+  return lines.join('\n');
+}
+
 export const SATISFACTION_DEFAULTS = {
   kuchipatchitchi: 50,
   mimitchi: 50,

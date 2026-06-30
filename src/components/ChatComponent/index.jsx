@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { actions, tamagotchis, SATISFACTION_DEFAULTS } from './helper/helper';
+import { actions, tamagotchis, SATISFACTION_DEFAULTS, buildSiteContextString } from './helper/helper';
+import { useProdutos } from '../../hooks/useProdutos';
 import tamaGif from '../../assets/tama-gif.gif';
 import mimiGif from '../../assets/mimi.gif';
 
@@ -93,6 +94,19 @@ export const ChatComponent = () => {
   const [phraseIdx, setPhraseIdx] = useState(0);
   const phrases = ['Vem brincar comigo!', 'Estou com saudades!', 'Que tal um carinho?', 'Bora conversar?', 'Olha pra mim!'];
 
+  // ── Contexto do site ──────────────────────────────────────────
+  const { produtos } = useProdutos();
+  const [dynamicSystemPrompt, setDynamicSystemPrompt] = useState(active.systemPrompt);
+
+  useEffect(() => {
+    if (produtos.length > 0) {
+      const siteContext = buildSiteContextString(produtos);
+      setDynamicSystemPrompt(active.systemPrompt + siteContext);
+    } else {
+      setDynamicSystemPrompt(active.systemPrompt);
+    }
+  }, [activeId, produtos]);
+
   useEffect(() => {
     if (isChatOpen) return;
     const id = setInterval(() => setPhraseIdx((p) => (p + 1) % phrases.length), 4000);
@@ -109,7 +123,7 @@ const sendToApi = async (conversation) => {
       const response = await fetch(`${API_URL}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: conversation, systemPrompt: active.systemPrompt }),
+        body: JSON.stringify({ messages: conversation, systemPrompt: dynamicSystemPrompt }),
       });
       const data = await response.json();
       return data.reply;
