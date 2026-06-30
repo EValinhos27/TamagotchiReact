@@ -6,7 +6,7 @@ import { Layout } from "../Layout";
 import Sobre from "../pages/Sobre";
 import Collection from "../pages/Collection";
 import AuthPage from "../pages/AuthPage";
-import { ProtectedRoute } from "./ProtectedRoute";
+import { ProtectedRoute } from "./Protectedroute";
 import Profile from "../pages/profile";
 
 export default function Routers() {

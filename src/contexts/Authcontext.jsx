@@ -26,7 +26,7 @@
  
 import { createContext, useState, useEffect, useCallback } from 'react';
 import { supabase } from '../services/api';
-import { getProfileById, createProfile, updateProfile } from '../services/profileService';
+import { getProfileById, createProfile, updateProfile } from '../services/Profileservice';
  
 // Cria o contexto — o valor padrão (null) é usado apenas se alguém
 // tentar consumir o contexto fora do AuthProvider (o hook useAuth previne isso)
