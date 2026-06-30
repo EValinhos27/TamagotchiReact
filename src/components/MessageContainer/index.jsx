@@ -8,7 +8,7 @@ export default function MessageContainer() {
     <Container>
       {mensagens.map((m) => (
         <Msg key={m.id}>
-          <img src={m.produto.image} alt={m.produto.name} />
+          <img src={m.produto.image_url} alt={m.produto.name} />
           <Info>
             <strong>{m.produto.name}</strong>
             <span>{m.texto}</span>

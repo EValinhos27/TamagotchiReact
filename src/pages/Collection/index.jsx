@@ -13,7 +13,7 @@ export default function Collection({ categoria }) {
   const { produtos, loading } = useProdutos();
 
   const bannerSrc =
-  categoria === "personagem" ? colecaoPersonagens : colecaoAcessorios;
+  categoria === "tamagotchi" ? colecaoPersonagens : colecaoAcessorios;
 
   const bannerAlt =
   categoria === "tamagotchi"
