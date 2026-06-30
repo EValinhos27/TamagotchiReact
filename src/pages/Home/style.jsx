@@ -166,7 +166,7 @@ export const PrateleiraTitle = styled.h2`
   text-transform: uppercase;
   font-weight: 300;
   font-size: 20px;
-  color: ${({ theme }) => theme.colors.text};
+  color: #212121;
   transition: color 0.3s ease;
 
   @media (min-width: 768px) {

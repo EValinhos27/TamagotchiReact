@@ -10,7 +10,7 @@ export const Card = styled.div`
       ? "0 0 10px rgba(212,175,55,0.7), 0 0 20px rgba(212,175,55,0.5)"
       : "none"};
   position: relative;
-  color: ${({ theme }) => theme.colors.text};
+  color: #212121;
   transition: background-color 0.3s, border-color 0.3s, color 0.3s;
  
   &:hover .card-price {
@@ -33,7 +33,7 @@ export const CardHeader = styled.h3`
   border-bottom: 1px solid ${({ theme }) => theme.colors.text};
   border-radius: 12px 12px 0 0;
   background: ${({ theme, $color }) => $color || theme.colors.card};
-  color: ${({ theme }) => theme.colors.text};
+  color: #757575;
   z-index: 1;
   transition: background-color 0.3s, border-bottom 0.3s, color 0.3s;
  
@@ -165,7 +165,7 @@ export const QuantBtn = styled.div`
     width: 10px;
     cursor: pointer;
     font-size: 10px;
-    color: ${({ theme }) => theme.colors.text};
+    color: #212121;
  
     @media (min-width: 425px) {
       width: 15px;
@@ -183,7 +183,7 @@ export const AddToCart = styled.button`
   font-size: 12px;
   cursor: pointer;
   background: ${({ theme, $color }) => $color || theme.colors.primary};
-  color: ${({ theme }) => theme.colors.white};
+  color: #212121;
   transition: transform 0.1s, background-color 0.3s;
  
   &:hover {
