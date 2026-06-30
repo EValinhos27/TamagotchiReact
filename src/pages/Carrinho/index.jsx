@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import { createOrderWithItems } from "../../services/orderService";
-import { addTamagotchiToUser } from "../../services/userTamagotchiService";
-import { getAllProducts } from "../../services/productService";
+import { createOrderWithItems } from "../../services/Orderservice";
+import { addTamagotchiToUser } from "../../services/Usertamagotchiservice";
+import { getAllProducts } from "../../services/Productservice";
 import {
   Alerta,
   Breadcrumb,

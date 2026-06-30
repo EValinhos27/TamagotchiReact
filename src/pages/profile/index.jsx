@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { supabase } from '../../services/api';
-import { getTamagotchisByUser } from '../../services/userTamagotchiService';
+import { getTamagotchisByUser } from '../../services/Usertamagotchiservice';
 import ProdutoCard from '../../components/ProdutoCard';
 import fotoPerfil from '../../assets/perfilPlaceholder.png';
 import logoTamagotchi from '../../assets/logoTamagochi.png';
