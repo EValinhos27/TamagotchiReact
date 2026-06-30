@@ -1,4 +1,5 @@
-export const theme = {
+export const lightTheme = {
+  name: 'light',
   colors: {
     primary: '#ffb86b',
     primaryHover: '#c8a2ff',
@@ -6,12 +7,25 @@ export const theme = {
     accentGreen: '#9fe3b0',
     background: '#f5efe6',
     card: '#fdd9d9',
+    cardBg: '#ffffff',
+    cardBorder: '#ffffff',
+    cardShadow: 'rgba(0, 0, 0, 0.08)',
     dark: '#2f2a2e',
+    text: '#2f2a2e',
+    textMuted: '#8b5e00',
     white: '#ffffff',
     footerBg: '#fcf2e8',
     footerDevBg: '#fdd9d9',
     blue: '#3f76c2',
     blueHover: '#3562a1',
+    inputBg: '#f5efe6',
+    inputColor: 'inherit',
+    inputBorderTop: '#b8a898',
+    inputBorderLeft: '#b8a898',
+    inputBorderRight: '#e8ddd3',
+    inputBorderBottom: '#e8ddd3',
+    breadcrumbText: '#333333',
+    themeButtonText: '#333333',
   },
   breakpoints: {
     sm: '425px',
@@ -19,4 +33,67 @@ export const theme = {
     lg: '990px',
     xl: '1200px',
   },
+  buttons: {
+    primary: {
+      background: '#ffb86b',
+      color: '#ffffff',
+      hover: '#c8a2ff',
+    },
+    danger: {
+      background: '#dc3545',
+      color: '#ffffff',
+      hover: '#bd2130',
+    },
+    success: {
+      background: '#28a745',
+      color: '#ffffff',
+      hover: '#218838',
+    },
+    warning: {
+      background: '#ffc107',
+      color: '#000000',
+      hover: '#e0a800',
+    },
+    secondary: {
+      background: '#6c757d',
+      color: '#ffffff',
+      hover: '#5a6268',
+    },
+  },
 }
+
+export const darkTheme = {
+  name: 'dark',
+  colors: {
+    primary: '#ffb86b',
+    primaryHover: '#c8a2ff',
+    accent: '#ff6fa5',
+    accentGreen: '#9fe3b0',
+    background: '#212529',
+    card: '#2b3035',
+    cardBg: '#2b3035',
+    cardBorder: '#495057',
+    cardShadow: 'rgba(0, 0, 0, 0.4)',
+    dark: '#f8f9fa',
+    text: '#f8f9fa',
+    textMuted: '#adb5bd',
+    white: '#ffffff',
+    footerBg: '#1c1e21',
+    footerDevBg: '#2b3035',
+    blue: '#3f76c2',
+    blueHover: '#3562a1',
+    inputBg: '#343a40',
+    inputColor: '#ffffff',
+    inputBorderTop: '#212529',
+    inputBorderLeft: '#212529',
+    inputBorderRight: '#495057',
+    inputBorderBottom: '#495057',
+    breadcrumbText: '#adb5bd',
+    themeButtonText: '#adb5bd',
+  },
+  breakpoints: lightTheme.breakpoints,
+  buttons: lightTheme.buttons,
+}
+
+export const theme = lightTheme;
+

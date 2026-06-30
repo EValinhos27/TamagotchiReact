@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import { createOrderWithItems } from "../../services/orderService";
+import { addTamagotchiToUser } from "../../services/userTamagotchiService";
+import { getAllProducts } from "../../services/productService";
 import {
   Alerta,
   Breadcrumb,
@@ -20,6 +24,15 @@ const CUPONS = { "05/05": 0.1 };
 
 export default function Carrinho() {
   const navigate = useNavigate();
+
+  // ---------------------------------------------------------------------
+  // Autenticação: vem do AuthContext, não mais do localStorage.
+  // O carrinho original checava `localStorage.getItem("cliente")`, mas
+  // nada no app grava esse item — o login real é feito via Supabase Auth
+  // e fica disponível em `user`/`isAuthenticated` no AuthContext.
+  // ---------------------------------------------------------------------
+  const { user, isAuthenticated, loading: authLoading } = useAuth();
+
   const [carrinho, setCarrinho] = useState([]);
   const [modalAberto, setModalAberto] = useState(false);
   const [metodo, setMetodo] = useState(null);
@@ -28,6 +41,9 @@ export default function Carrinho() {
   const [cupomMsg, setCupomMsg] = useState("");
   const [alerta, setAlerta] = useState("");
   const [alertaVisible, setAlertaVisible] = useState(false);
+
+  // Estado de carregamento durante a finalização da compra (chamadas ao Supabase)
+  const [finalizando, setFinalizando] = useState(false);
 
   useEffect(() => {
     setCarrinho(JSON.parse(localStorage.getItem("carrinho")) || []);
@@ -86,26 +102,98 @@ export default function Carrinho() {
       mostrarAlerta("Carrinho vazio!");
       return;
     }
+
+    // Checagem de login agora usa o AuthContext (Supabase Auth real),
+    // não mais o localStorage.
+    if (!isAuthenticated) {
+      mostrarAlerta("Faça o login primeiro!");
+      navigate("/login");
+      return;
+    }
+
     setModalAberto(true);
   }
 
-  function confirmarPagamento() {
+  // =============================================================================
+  // confirmarPagamento — Grava o pedido no Supabase
+  // =============================================================================
+  // Fluxo:
+  //   1. Cria o pedido (orders) + itens (order_items) via createOrderWithItems
+  //   2. Para cada item do carrinho cujo produto é do tipo 'tamagotchi',
+  //      adiciona um registro em user_tamagotchis (a "coleção" do usuário)
+  //   3. Limpa o carrinho e fecha o modal
+  //
+  // O carrinho salvo no localStorage não guarda o `type` do produto, então
+  // buscamos a lista de produtos no Supabase para descobrir quais itens
+  // do carrinho são tamagotchis antes de popular user_tamagotchis.
+  // =============================================================================
+  async function confirmarPagamento() {
     if (!metodo) {
       mostrarAlerta("Escolha uma forma de pagamento!");
       return;
     }
-    const cliente = localStorage.getItem("cliente");
-    if (!cliente) {
-      alert("Faça o login primeiro!");
+
+    // Proteção extra: se a sessão expirou entre abrir o modal e confirmar
+    if (!isAuthenticated || !user) {
+      mostrarAlerta("Sua sessão expirou. Faça login novamente.");
+      setModalAberto(false);
       navigate("/login");
       return;
     }
+
     const total = carrinho.reduce((a, p) => a + p.preco * p.quantidade, 0);
-    mostrarAlerta(
-      `Pagamento via ${metodo}! Total: R$ ${(total * (1 - desconto)).toFixed(2)}`,
-    );
-    limpar();
-    setModalAberto(false);
+    const totalComDesconto = total * (1 - desconto);
+
+    setFinalizando(true);
+
+    try {
+      // ---------------------------------------------------------------
+      // PASSO 1: Monta os itens no formato esperado por createOrderWithItems
+      // ---------------------------------------------------------------
+      const itemsParaPedido = carrinho.map((produto) => ({
+        product_id: produto.id,
+        quantity: produto.quantidade,
+        price_at_purchase: produto.preco,
+      }));
+
+      // Cria o pedido e os order_items em sequência no Supabase
+      await createOrderWithItems(user.id, itemsParaPedido, totalComDesconto);
+
+      // ---------------------------------------------------------------
+      // PASSO 2: Identifica quais itens comprados são Tamagotchis
+      // ---------------------------------------------------------------
+      // Busca todos os produtos para saber o `type` de cada item do carrinho
+      // (o carrinho local só guarda id, nome, preço, imagem e quantidade)
+      const todosProdutos = await getAllProducts();
+
+      const itensTamagotchi = carrinho.filter((itemCarrinho) => {
+        const produtoCompleto = todosProdutos.find((p) => p.id === itemCarrinho.id);
+        return produtoCompleto?.type === "tamagotchi";
+      });
+
+      // ---------------------------------------------------------------
+      // PASSO 3: Adiciona cada Tamagotchi comprado à coleção do usuário
+      // ---------------------------------------------------------------
+      // Se o usuário comprou quantidade > 1 do mesmo Tamagotchi, criamos
+      // um registro em user_tamagotchis para cada unidade.
+      for (const item of itensTamagotchi) {
+        for (let i = 0; i < item.quantidade; i++) {
+          await addTamagotchiToUser(user.id, item.id, item.nome);
+        }
+      }
+
+      mostrarAlerta(
+        `Pagamento via ${metodo}! Total: R$ ${totalComDesconto.toFixed(2)}`
+      );
+      limpar();
+      setModalAberto(false);
+      setMetodo(null);
+    } catch (error) {
+      console.error("[Carrinho] Erro ao finalizar compra:", error.message);
+      mostrarAlerta(`Erro ao finalizar compra: ${error.message}`);
+    } finally {
+      setFinalizando(false);
+    }
   }
 
   const total = carrinho.reduce(
@@ -199,7 +287,9 @@ export default function Carrinho() {
             <Btn $variant="danger" onClick={limpar}>
               Limpar
             </Btn>
-            <Btn $variant="success" onClick={finalizar}>
+            {/* Desabilitado enquanto o AuthContext ainda está verificando a sessão,
+                evitando um falso "não autenticado" no primeiro render */}
+            <Btn $variant="success" onClick={finalizar} disabled={authLoading}>
               Finalizar
             </Btn>
           </BtnGrupo>
@@ -224,13 +314,15 @@ export default function Carrinho() {
             $variant="success"
             style={{ width: "100%", marginTop: "1rem" }}
             onClick={confirmarPagamento}
+            disabled={finalizando}
           >
-            Confirmar pagamento
+            {finalizando ? "Processando..." : "Confirmar pagamento"}
           </Btn>
           <Btn
             $variant="danger"
             style={{ width: "100%", marginTop: "8px" }}
             onClick={() => setModalAberto(false)}
+            disabled={finalizando}
           >
             Cancelar
           </Btn>

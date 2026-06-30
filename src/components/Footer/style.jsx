@@ -5,10 +5,11 @@ export const FooterWrapper = styled.footer`
   flex-direction: column;
   gap: 20px;
   justify-content: space-around;
-  background-color: #fcf2e8;
+  background-color: ${({ theme }) => theme.colors.footerBg};
   padding: 20px;
-  box-shadow: 0px 2px 50px #e6d8e3;
+  box-shadow: ${({ theme }) => theme.name === 'dark' ? '0px 2px 50px rgba(0, 0, 0, 0.5)' : '0px 2px 50px #e6d8e3'};
   margin-top: 20px;
+  transition: background-color 0.3s ease;
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -28,8 +29,9 @@ export const FooterSection = styled.div`
   font-size: 12px;
   display: flex;
   flex-direction: column;
-  color: #2f2a2e;
+  color: ${({ theme }) => theme.colors.text};
   text-align: center;
+  transition: color 0.3s ease;
 
   @media (min-width: 768px) {
     font-size: 15px;
@@ -37,9 +39,10 @@ export const FooterSection = styled.div`
   }
 
   a {
-    color: #2f2a2e;
+    color: ${({ theme }) => theme.colors.text};
     text-decoration: none;
     text-align: center;
+    transition: color 0.3s ease;
 
     @media (min-width: 768px) {
       text-align: left;
@@ -47,6 +50,7 @@ export const FooterSection = styled.div`
 
     &:hover {
       text-decoration: underline;
+      color: ${({ theme }) => theme.colors.primary};
     }
   }
 
