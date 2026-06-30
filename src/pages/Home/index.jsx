@@ -3,7 +3,7 @@ import Carousel from "../../components/Carousel";
 import MessageContainer from "../../components/MessageContainer";
 import logoImg from "../../assets/home/Logo.jpeg";
 import deviceImg from "../../assets/home/device.png";
-import { useProdutos } from "../../hooks/useProdutos";
+import { useProdutos } from "../../hooks/useProdutos.js";
 import { useAuth } from "../../hooks/useAuth";
 import {
   ActionBtn,

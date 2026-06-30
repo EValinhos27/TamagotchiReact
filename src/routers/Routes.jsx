@@ -7,7 +7,7 @@ import Sobre from "../pages/Sobre";
 import Collection from "../pages/Collection";
 import AuthPage from "../pages/AuthPage";
 import { ProtectedRoute } from "./Protectedroute";
-import Profile from "../pages/profile";
+import Profile from "../pages/profile/index";
 
 export default function Routers() {
   return (
