@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { supabase } from '../../services/api';
+import { getTamagotchisByUser } from '../../services/userTamagotchiService';
+import ProdutoCard from '../../components/ProdutoCard';
 import fotoPerfil from '../../assets/perfilPlaceholder.png';
 import logoTamagotchi from '../../assets/logoTamagochi.png';
 import * as S from './style';
@@ -16,6 +18,33 @@ const ProfilePage = () => {
   const [senhaUpdate, setSenhaUpdate] = useState('');
   const [actionError, setActionError] = useState('');
   const [actionLoading, setActionLoading] = useState(false);
+ 
+  // ---------------------------------------------------------------------
+  // Coleção de Tamagotchis do usuário — exibida abaixo dos cards de navegação
+  // ---------------------------------------------------------------------
+  const [meusTamagotchis, setMeusTamagotchis] = useState([]);
+  const [colecaoLoading, setColecaoLoading] = useState(true);
+  const [colecaoError, setColecaoError] = useState('');
+ 
+  // Busca a coleção assim que o usuário estiver disponível
+  useEffect(() => {
+    if (!user) return;
+ 
+    async function carregarColecao() {
+      setColecaoLoading(true);
+      setColecaoError('');
+      try {
+        const dados = await getTamagotchisByUser(user.id);
+        setMeusTamagotchis(dados || []);
+      } catch (error) {
+        setColecaoError('Não foi possível carregar seus Tamagotchis.');
+      } finally {
+        setColecaoLoading(false);
+      }
+    }
+ 
+    carregarColecao();
+  }, [user]);
  
   const handleLogout = async () => {
     try {
@@ -94,14 +123,12 @@ const ProfilePage = () => {
         {view === 'principal' && (
           <>
             <S.HeaderContainer>
-              {/* Usa avatar_url do perfil se existir, ou a imagem placeholder como padrão */}
               <S.ProfileImg
                 src={profile?.avatar_url || fotoPerfil}
                 alt="Foto de perfil"
                 onError={(e) => { e.target.src = fotoPerfil; }}
               />
               <S.UserInfoContainer>
-                {/* username vem da tabela profiles; email vem do auth.users */}
                 <S.TextName>{profile?.username || 'Usuário'}</S.TextName>
                 <S.TextEmail>{user?.email}</S.TextEmail>
                 <S.ButtonGroup>
@@ -138,6 +165,53 @@ const ProfilePage = () => {
                 <S.CardSubtitle>Dados poderão ser perdidos</S.CardSubtitle>
               </S.Card>
             </S.CardsGrid>
+ 
+            {/* ============================================================ */}
+            {/* COLEÇÃO DE TAMAGOTCHIS — itens que o usuário já comprou       */}
+            {/* ============================================================ */}
+            {/* Cada registro de user_tamagotchis vem com os dados do produto
+                embutidos em `products` (join feito no userTamagotchiService).
+                Passamos `produto.products` para o ProdutoCard em modoColecao,
+                que esconde preço, favoritar e botão de comprar. */}
+            <S.ColecaoSection>
+              <S.ColecaoTitle>🐾 Meus Tamagotchis</S.ColecaoTitle>
+ 
+              {colecaoLoading && (
+                <p style={{ textAlign: 'center', color: '#666' }}>
+                  Carregando sua coleção...
+                </p>
+              )}
+ 
+              {colecaoError && (
+                <p style={{ textAlign: 'center', color: '#c0392b' }}>
+                  {colecaoError}
+                </p>
+              )}
+ 
+              {!colecaoLoading && !colecaoError && meusTamagotchis.length === 0 && (
+                <p style={{ textAlign: 'center', color: '#666' }}>
+                  Você ainda não possui nenhum Tamagotchi. Que tal dar uma olhada na loja?
+                </p>
+              )}
+ 
+              {!colecaoLoading && meusTamagotchis.length > 0 && (
+                <S.CardsGrid>
+                  {meusTamagotchis.map((item) => (
+                    <ProdutoCard
+                      key={item.id}
+                      // `products` traz os dados do catálogo (nome, imagem, descrição);
+                      // sobrescrevemos `name` pelo apelido (nickname) dado pelo usuário,
+                      // se ele tiver definido um
+                      produto={{
+                        ...item.products,
+                        name: item.nickname || item.products?.name,
+                      }}
+                      modoColecao
+                    />
+                  ))}
+                </S.CardsGrid>
+              )}
+            </S.ColecaoSection>
           </>
         )}
  

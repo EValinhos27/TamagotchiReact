@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+ 
 export const Card = styled.div`
   border-radius: 12px;
   box-sizing: border-box;
@@ -12,7 +12,7 @@ export const Card = styled.div`
   position: relative;
   color: ${({ theme }) => theme.colors.text};
   transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-
+ 
   &:hover .card-price {
     display: none;
   }
@@ -20,7 +20,7 @@ export const Card = styled.div`
     display: block;
   }
 `;
-
+ 
 export const CardHeader = styled.h3`
   position: absolute;
   width: 100%;
@@ -36,13 +36,13 @@ export const CardHeader = styled.h3`
   color: ${({ theme }) => theme.colors.text};
   z-index: 1;
   transition: background-color 0.3s, border-bottom 0.3s, color 0.3s;
-
+ 
   @media (min-width: 768px) {
     font-size: 16px;
     padding: 5px 0;
   }
 `;
-
+ 
 export const HeartBtn = styled.span`
   position: absolute;
   right: 12px;
@@ -50,31 +50,31 @@ export const HeartBtn = styled.span`
   transform: translateY(-50%);
   cursor: pointer;
   line-height: 0;
-
+ 
   @media (min-width: 500px) {
     top: 50%;
   }
 `;
-
+ 
 export const CardImg = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 12px;
   object-fit: cover;
 `;
-
+ 
 export const CardInfo = styled.div`
   position: absolute;
   bottom: 0;
   padding: 0 10px;
   width: 100%;
   box-sizing: border-box;
-
+ 
   @media (min-width: 990px) {
     padding: 0 20px;
   }
 `;
-
+ 
 export const CardDescription = styled.p`
   font-size: 10px;
   text-align: center;
@@ -92,7 +92,7 @@ export const CardDescription = styled.p`
   transform: translateX(-50%);
   width: 80%;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-
+ 
   &::before {
     content: "";
     position: absolute;
@@ -103,7 +103,7 @@ export const CardDescription = styled.p`
     border-style: solid;
     border-color: ${({ theme }) => theme.colors.cardBg} transparent transparent transparent;
   }
-
+ 
   @media (min-width: 450px) {
     padding: 10px;
   }
@@ -111,14 +111,14 @@ export const CardDescription = styled.p`
     font-size: 12px;
   }
 `;
-
+ 
 export const CardPrice = styled.p`
   font-size: 12px;
   font-weight: 600;
   display: flex;
   flex-direction: column;
   margin: 0;
-
+ 
   span {
     font-size: 8px;
     text-decoration: line-through;
@@ -129,7 +129,7 @@ export const CardPrice = styled.p`
       font-size: 12px;
     }
   }
-
+ 
   @media (min-width: 768px) {
     font-size: 14px;
   }
@@ -137,18 +137,18 @@ export const CardPrice = styled.p`
     font-size: 16px;
   }
 `;
-
+ 
 export const ContainerBtn = styled.div`
   display: flex;
   gap: 5px;
   height: 30px;
   margin: 10px 0;
-
+ 
   @media (min-width: 425px) {
     gap: 15px;
   }
 `;
-
+ 
 export const QuantBtn = styled.div`
   display: flex;
   box-shadow: 1px 1px 5px ${({ theme }) => theme.name === 'dark' ? 'rgba(0,0,0,0.5)' : '#2f2a2e'};
@@ -156,7 +156,7 @@ export const QuantBtn = styled.div`
   height: 30px;
   backdrop-filter: blur(5px);
   padding: 0 5px;
-
+ 
   button,
   input {
     border: none;
@@ -166,14 +166,14 @@ export const QuantBtn = styled.div`
     cursor: pointer;
     font-size: 10px;
     color: ${({ theme }) => theme.colors.text};
-
+ 
     @media (min-width: 425px) {
       width: 15px;
       font-size: 12px;
     }
   }
 `;
-
+ 
 export const AddToCart = styled.button`
   width: 100%;
   height: 30px;
@@ -185,12 +185,16 @@ export const AddToCart = styled.button`
   background: ${({ theme, $color }) => $color || theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
   transition: transform 0.1s, background-color 0.3s;
-
+ 
   &:hover {
     transform: scale(1.01);
   }
-
+ 
   @media (min-width: 768px) {
     font-size: 14px;
   }
+`;
+
+export const CardInfoColecao = styled(CardInfo)`
+  padding-bottom: 14px;
 `;

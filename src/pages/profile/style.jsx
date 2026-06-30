@@ -1,411 +1,321 @@
-import styled from 'styled-components';
-
-
-
-export const MainContainer = styled.main`
-
-  background-color: #f5efe6;
-
+// =============================================================================
+// ProfilePage/style.jsx — Styled-components da página de perfil
+// =============================================================================
+// Mantém a mesma identidade visual do projeto (paleta #f5efe6, #3f76c2, Poppins)
+// e preserva a estrutura de layout criada pelo colega.
+// =============================================================================
+ 
+import { styled } from 'styled-components';
+ 
+// Wrapper externo: ocupa a tela inteira e empilha conteúdo + footer
+export const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-
-  width: 100vw;
-
-  margin: 0;
-
-  padding: 0;
-
-  font-family: 'Poppins', sans-serif;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-`;
-
-
-
-export const ContentWrapper = styled.div`
-
-  width: 100%;
-
-  max-width: 1200px;
-
-  padding: 1rem;
-
-  flex: 1;
-
-`;
-
-
-
-export const HeaderContainer = styled.div`
-
-  display: flex;
-
-  margin-top: 1rem;
-
-  gap: 2%;
-
-  margin-bottom: 2rem;
-
-
-
-  @media (min-width: 900px) {
-
-    margin-bottom: 1rem;
-
-  }
-
-`;
-
-
-
-export const ProfileImg = styled.img`
-
-  margin: 0;
-
-  padding: 0;
-
-  display: block;
-
-  width: 20%;
-
-  border-radius: 50%;
-
-  background-color: #ffffff;
-
-
-
-  @media (min-width: 700px) { width: 15%; }
-
-  @media (min-width: 800px) { width: 13%; }
-
-  @media (min-width: 1000px) { width: 10%; }
-
-`;
-
-
-
-export const UserInfoContainer = styled.div`
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-
-`;
-
-
-
-export const TextName = styled.p`
-
-  font-size: 0.8rem;
-
-  margin: 0;
-
-  font-weight: 600;
-
-  @media (min-width: 700px) { font-size: 0.9rem; }
-
-  @media (min-width: 1000px) { font-size: 1rem; }
-
-  @media (min-width: 1500px) { font-size: 1.2rem; }
-
-`;
-
-
-
-export const TextEmail = styled.p`
-
-  font-size: 0.8rem;
-
-  margin: 0;
-
-  color: #4a4a4a;
-
-  @media (min-width: 700px) { font-size: 0.9rem; }
-
-  @media (min-width: 1000px) { font-size: 1rem; }
-
-  @media (min-width: 1500px) { font-size: 1.2rem; }
-
-`;
-
-
-
-export const ButtonGroup = styled.div`
-
-  margin-top: 10px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 5px;
-
-`;
-
-
-
-export const Button = styled.button`
-
-  color: white;
-
-  background-color: #3f76c2;
-
-  font-size: 0.9rem;
-
-  transition: 300ms;
-
-  border-radius: 20px;
-
-  border: none;
-
-  padding: 8px 16px;
-
-  width: 100%;
-
-
-
-  @media (min-width: 700px) { font-size: 1rem; }
-
-  @media (min-width: 1000px) { font-size: 1.2rem; }
-
-  @media (min-width: 1500px) { font-size: 1.3rem; }
-
-
-
-  &:hover {
-
-    cursor: pointer;
-
-    background-color: #3562a1;
-
-  }
-
-`;
-
-
-
-export const CardsGrid = styled.div`
-
-  display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 10px;
-
-  justify-content: center;
-
-  align-items: center;
-
-
-
-  @media (min-width: 1000px) {
-
-    display: flex;
-
-  }
-
-`;
-
-
-
-export const Card = styled.div`
-
-  background-color: #ffffff;
-
-  padding: 1rem;
-
-  border: 1px solid #ffffff;
-
-  border-radius: 14px;
-
-  cursor: pointer;
-
-  width: 100%;
-
-  max-width: 300px;
-
-  text-align: center;
-
-  transition: 0.2s;
-
-
-
-  &:hover {
-
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-
-  }
-
-`;
-
-
-
-export const CardTitle = styled.p`
-
-  margin-top: 1rem;
-
-  font-weight: 600;
-
-  font-size: 0.9rem;
-
-  @media (min-width: 1000px) { font-size: 1.1rem; }
-
-`;
-
-
-
-export const CardSubtitle = styled.p`
-
-  color: #4a4a4a;
-
-  font-size: 0.8rem;
-
-  @media (min-width: 1000px) { font-size: 0.9rem; }
-
-`;
-
-
-
-export const ActionContainer = styled.div`
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  margin-top: 2rem;
-
-`;
-
-
-
-export const ActionBox = styled.div`
-
-  background-color: #ffffff;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  width: 100%;
-
-  max-width: 60%;
-
-  padding: 2.3rem;
-
-  border-radius: 20px;
-
-`;
-
-export const InputGroup = styled.div`
-
-  display: flex;
-
-  flex-direction: column;
-
-  width: 100%;
-
-  margin-bottom: 15px;
-
-`;
-
-
-
-export const Label = styled.label`
-
-  margin-top: 10px;
-
-  margin-bottom: 2px;
-
-  font-size: 1.1rem;
-
-  font-weight: 500;
-
-
-
-  @media (min-width: 500px) { font-size: 1.2rem; }
-
-  @media (min-width: 1000px) { font-size: 1.4rem; }
-
-`;
-
-
-
-export const Input = styled.input`
-
-  border-radius: 15px;
-
-  height: 1.4rem;
-
-  padding: 8px;
-
-  border: 1px solid #ccc;
-
-  outline: none;
-
-
-
-  @media (min-width: 1000px) { height: 1.6rem; }
-
-  @media (min-width: 1500px) { height: 1.8rem; }
-
-`;
-
-
-
-export const FooterContainer = styled.footer`
-
   background-color: #f5efe6;
-
-  margin-top: 40px;
-
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+`;
+ 
+// Área central que cresce para empurrar o footer para baixo
+export const ContentWrapper = styled.main`
+  flex: 1;
+  max-width: 900px;
   width: 100%;
-
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+`;
+ 
+// -----------------------------------------------------------------------
+// Cabeçalho: foto de perfil + nome/email + botões
+// -----------------------------------------------------------------------
+ 
+export const HeaderContainer = styled.div`
   display: flex;
-
-  flex-direction: column;
-
   align-items: center;
-
-  padding: 20px 0;
-
-  border-top: 1px solid #e0d8cc;
-
-
-
-  .menu-footer, .footer-sociais, .footer-dev {
-
+  gap: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.07);
+  margin-bottom: 1.5rem;
+ 
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+`;
+ 
+export const ProfileImg = styled.img`
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #3f76c2;
+  flex-shrink: 0;
+`;
+ 
+export const UserInfoContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  gap: 1rem;
+ 
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+`;
+ 
+export const TextName = styled.h2`
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 2px;
+  color: #1a1a1a;
+`;
+ 
+export const TextEmail = styled.p`
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+`;
+ 
+export const ButtonGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 100px;
+`;
+ 
+// -----------------------------------------------------------------------
+// Botão padrão da página — reutilizado em vários contextos
+// -----------------------------------------------------------------------
+ 
+export const Button = styled.button`
+  width: 100%;
+  height: 38px;
+  border-radius: 20px;
+  color: white;
+  background-color: #3f76c2;
+  font-size: 0.9rem;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  border: none;
+  cursor: pointer;
+  transition: background-color 300ms, opacity 300ms;
+  margin-top: 0;
+ 
+  /* Bordas alto-relevo (padrão do projeto) */
+  border-top: 2px solid #6a9fd4;
+  border-left: 2px solid #6a9fd4;
+  border-right: 2px solid #1a3a5c;
+  border-bottom: 2px solid #1a3a5c;
+ 
+  &:hover:not(:disabled) {
+    background-color: #3562a1;
+  }
+ 
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+ 
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+    border-top: 2px solid #1a3a5c;
+    border-left: 2px solid #1a3a5c;
+    border-right: 2px solid #6a9fd4;
+    border-bottom: 2px solid #6a9fd4;
+  }
+`;
+ 
+// -----------------------------------------------------------------------
+// Grid de cards de navegação
+// -----------------------------------------------------------------------
+ 
+export const CardsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+ 
+  /* Em telas maiores, 3 colunas */
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+ 
+  /* Mobile: coluna única */
+  @media (max-width: 380px) {
+    grid-template-columns: 1fr;
+  }
+`;
+ 
+export const Card = styled.div`
+  background-color: #ffffff;
+  border-radius: 14px;
+  padding: 1.2rem 1rem;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.07);
+  cursor: pointer;
+  transition: transform 200ms, box-shadow 200ms;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 2rem; /* Tamanho do emoji */
+ 
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.12);
+  }
+ 
+  &:active {
+    transform: translateY(0);
+  }
+`;
+ 
+export const CardTitle = styled.h3`
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+  color: #1a1a1a;
+`;
+ 
+export const CardSubtitle = styled.p`
+  font-size: 0.78rem;
+  color: #888;
+  margin: 0;
+`;
+ 
+// -----------------------------------------------------------------------
+// Sub-telas (info, atualizar, deletar)
+// -----------------------------------------------------------------------
+ 
+// Container geral das sub-telas
+export const ActionContainer = styled.div`
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+`;
+ 
+// Card branco que envolve o conteúdo da sub-tela
+export const ActionBox = styled.div`
+  background-color: #ffffff;
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+ 
+  p {
+    font-size: 0.95rem;
+    color: #333;
+    margin: 4px 0;
+  }
+`;
+ 
+export const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+`;
+ 
+export const Label = styled.label`
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+`;
+ 
+// Input — mesmo estilo baixo-relevo dos outros formulários do projeto
+export const Input = styled.input`
+  height: 38px;
+  border-radius: 12px;
+  width: 100%;
+  background-color: #f5efe6;
+  text-indent: 10px;
+  box-sizing: border-box;
+  font-size: 0.95rem;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  color: #1a1a1a;
+  outline: none;
+ 
+  /* Bordas baixo-relevo (padrão do projeto) */
+  border-top: 1.5px solid #b8a898;
+  border-left: 1.5px solid #b8a898;
+  border-right: 1.5px solid #e8ddd3;
+  border-bottom: 1.5px solid #e8ddd3;
+ 
+  &:focus {
+    border: 1.5px solid #3f76c2;
+  }
+ 
+  &::placeholder {
+    color: #aaa;
+  }
+`;
+ 
+// -----------------------------------------------------------------------
+// Footer
+// -----------------------------------------------------------------------
+ 
+export const FooterContainer = styled.footer`
+  background-color: #1a1a2e;
+  color: #f0f0f0;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: 0.85rem;
+ 
+  .menu-footer {
     display: flex;
-
-    gap: 15px;
-
-    margin: 10px 0;
-
+    gap: 1.5rem;
     flex-wrap: wrap;
-
     justify-content: center;
-
+ 
+    a {
+      color: #adb5bd;
+      text-decoration: none;
+      transition: color 200ms;
+ 
+      &:hover {
+        color: #ffffff;
+      }
+    }
   }
-
-  
-
-  a {
-
-    text-decoration: none;
-
-    color: black;
-
-    font-size: 0.9rem;
-
+ 
+  .footer-sociais {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+ 
+    a {
+      color: #6c9fd4;
+      text-decoration: none;
+ 
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
-
+`;
+ 
+export const ColecaoSection = styled.section`
+  margin-top: 2rem;
+  width: 100%;
+`;
+ 
+export const ColecaoTitle = styled.h2`
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1rem;
+ 
+  @media (min-width: 700px) { font-size: 1.3rem; }
+  @media (min-width: 1000px) { font-size: 1.5rem; }
 `;
