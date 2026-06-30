@@ -59,6 +59,7 @@ TamagotchiReact/
 │   │   ├── Carrinho/
 │   │   ├── Sobre/
 │   │   └── AuthPage/
+│   │   └── Profile/
 │   ├── routers/
 │   │   ├── Routes.jsx
 │   │   └── ProtectedRoute.jsx
@@ -176,4 +177,11 @@ npm run lint     # Executa a verificação de código com ESLint
 
 ## Equipe
 
+Caio Lucas Rocha
+Emanuel Valinhos
+Luisa Abreu
+Luiz Vieira de Oliveira Ribeiro
+Natasha Von Markendorf Mendonça
+
 Projeto desenvolvido como trabalho final do curso de IA no **Serratec**.
+
